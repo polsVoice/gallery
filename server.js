@@ -10,6 +10,17 @@
         console.log( data.toString() );
     } );
 
+    app.get( "/", function( req, res ){
+        var html = fs.readFileSync( __dirname + "/public/index.html" );
+        res.writeHeader( 200, { "Content-Type": "text/html" } );
+        res.write( html );
+        res.end();
+    } );
+
+    app.get( "/directories", function( req, res ){
+        res.send( { "msg": "Hola" } );
+    } );
+
     fs.readdir(__dirname, function(err, files) {
         if (err) return;
         files.forEach(function(f) {
@@ -49,4 +60,9 @@
         //~ var arr = [];
         //~ console.log( results );
     //~ } );
+    
+    app.use( "/", express.static( __dirname + "/public/" ) );
+
+    app.listen( 30025 );
+    console.log( "Listening on port 30025" );
 } )();
