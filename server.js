@@ -17,19 +17,20 @@
         res.end();
     } );
 
-    
-
     app.get( "/directories", function( req, res ){
         fs.readdir(__dirname, function(err, files) {
             if (err) {return;}
             var arr = [];
             files.forEach(function(f) {
-                if ( fs.lstatSync( f ).isDirectory() ){
+                if ( fs.lstatSync( f ).isDirectory() &&
+                    f !== ".git" &&
+                    f !== "node_modules" &&
+                    f !== "public" ){
                     arr.push( f );
                 }
             });
             console.log( "Send from server.js " + arr );
-            
+            res.send( arr );
         });
     } );
 
