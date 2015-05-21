@@ -17,18 +17,22 @@
         res.end();
     } );
 
+    
+
     app.get( "/directories", function( req, res ){
-        res.send( { "msg": "Hola" } );
+        fs.readdir(__dirname, function(err, files) {
+            if (err) {return;}
+            var arr = [];
+            files.forEach(function(f) {
+                if ( fs.lstatSync( f ).isDirectory() ){
+                    arr.push( f );
+                }
+            });
+            console.log( "Send from server.js " + arr );
+            
+        });
     } );
 
-    fs.readdir(__dirname, function(err, files) {
-        if (err) return;
-        files.forEach(function(f) {
-            if ( fs.lstatSync( f ).isDirectory() ){
-                console.log('Files: ' + f);
-            }
-        });
-    });
 
     var walk = function(dir, done) {
       var results = [];
