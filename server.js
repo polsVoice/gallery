@@ -61,11 +61,12 @@
 
     app.post( "/dirList", function( req, res ){
         var dir = req.body.dir;
-        console.log( req.body.dir );
-        walk( process.env.PWD + "/" + dir, function( err, results ){
-            if (err ){ throw err; }
-            var arr = [];
-            console.log( results );
+        console.log( dir );
+        walk( process.env.PWD + "/" + dir, function( err, result ){
+            if ( err ){ throw err; }
+            var arr = result;
+            console.log( arr );
+            res.send( { "result": result } );
         } );
     } );
 
