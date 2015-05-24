@@ -1,6 +1,5 @@
 var gallery = {
     dir: null,
-    img: null,
     getFileList: function(){
         "use strict";
         var dir = $( this ).val();
@@ -14,15 +13,20 @@ var gallery = {
                 console.log( data.result );
                 gallery.dir = data.result;
                 console.log( "gallery.dir is " + gallery.dir );
+                console.log( "Contents of array after $.ajax is " + data.result );
+                gallery.imgRender( data.result );
             },
             error: function( jqxhr, status, errThrown ){
                 console.log( jqxhr.responseText );
                 console.log( status );
                 console.log( errThrown );
             }
-        } ).success( function( data ){
-            console.log( "Contents of array after $.ajax is " + data.result );
         } );
+    },
+    imgRender: function( imgArray ){
+        console.log( "First item is " + imgArray[ 0 ] );
+        //~ $.post( "/display", { "img": imgArray[ 0 ] }, function( data ){
+        //~ } );
     },
     init: function(){
         "use strict";
@@ -39,4 +43,3 @@ var gallery = {
     }
 };
 gallery.init();
-// test3

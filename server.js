@@ -43,14 +43,14 @@
 
     app.get( "/directories", function( req, res ){
         "use strict";
-        fs.readdir(__dirname, function(err, files) {
+        var path = __dirname + "/public/";
+        fs.readdir( path, function(err, files) {
             if (err) {return;}
             var arr = [];
+            console.log( files );
             files.forEach(function(f) {
-                if ( fs.lstatSync( f ).isDirectory() &&
-                    f !== ".git" &&
-                    f !== "node_modules" &&
-                    f !== "public" ){
+                console.log( f );
+                if ( fs.lstatSync( path + f ).isDirectory() ){
                     arr.push( f );
                 }
             });
@@ -62,7 +62,7 @@
     app.post( "/dirList", function( req, res ){
         var dir = req.body.dir;
         console.log( dir );
-        walk( process.env.PWD + "/" + dir, function( err, result ){
+        walk( process.env.PWD + "/public/" + dir, function( err, result ){
             if ( err ){ throw err; }
             var arr = result;
             console.log( arr );
