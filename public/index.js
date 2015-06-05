@@ -25,8 +25,7 @@ var gallery = {
     },
     imgRender: function( imgArray ){
         console.log( "First item is " + imgArray[ 0 ] );
-        //~ $.post( "/display", { "img": imgArray[ 0 ] }, function( data ){
-        //~ } );
+		$( "body" ).append( "<img src='" + imgArray[ 0 ] + "' />" );
     },
     init: function(){
         "use strict";

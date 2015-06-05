@@ -40,10 +40,16 @@
         res.write( html );
         res.end();
     } );
+    
+    app.get( "/sendImg", function( req, res ){
+		var img = fs.readFileSync( req.body.img );
+        res.writeHeader( 200, { "Content-Type": "image/jpeg" } );
+        res.send( img );
+	} );
 
     app.get( "/directories", function( req, res ){
         "use strict";
-        var path = __dirname + "/public/";
+        var path = "./public/";
         fs.readdir( path, function(err, files) {
             if (err) {return;}
             var arr = [];
@@ -61,16 +67,18 @@
 
     app.post( "/dirList", function( req, res ){
         var dir = req.body.dir;
-        console.log( dir );
+        console.log( "directory is " + dir );
         walk( process.env.PWD + "/public/" + dir, function( err, result ){
             if ( err ){ throw err; }
-            var arr = result;
-            console.log( arr );
+            result.forEach( function( element, index ){
+				result[ index ] = element.replace( __dirname + "/public/", "" );
+			} );
+            console.log( "We've got files " + result );
             res.send( { "result": result } );
         } );
     } );
 
-    app.use( "/", express.static( __dirname + "/public/" ) );
+	app.use( "/", express.static( __dirname + "/public/" ) );
 
     app.listen( 30025 );
     console.log( "Listening on port 30025" );
