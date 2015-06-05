@@ -2,6 +2,7 @@ var gallery = {
     dir: null,
     getFileList: function(){
         "use strict";
+        $( this ).blur();
         var dir = $( this ).val();
         console.log( dir );
         $.ajax( {
@@ -24,28 +25,26 @@ var gallery = {
         } );
     },
     imgRender: function( imgArray ){
+		"use strict";
+		var arr = [], item = "";
 		$.each( imgArray, function( element, index ){
 			imgArray[ index ] = "{href: '" + element + "' }, ";
 		} );
 		$( "#startSlides" ).fancybox();
 		$.fancybox.open( imgArray, {
-		'openEffect'    :   'elastic',
-    'closeEffect'   :   'elastic',
-    'nextEffect'    :   'fade',
-    'openSpeed'     :   600, 
-    'closeSpeed'    :   200,
-    helpers : {
-        buttons : {}
-    }
-});
-        //~ console.log( "First item is " + imgArray[ 0 ] );
-		//~ $( "body" ).append( "<a class='fancybox' href='" + imgArray[0] + "'>Click Here</a>" );
+			'openEffect'    :   'elastic',
+			'closeEffect'   :   'elastic',
+			'nextEffect'    :   'fade',
+			'openSpeed'     :   600, 
+			'closeSpeed'    :   200,
+			helpers : {
+				buttons : {}
+			}
+		});
     },
     init: function(){
-        "use strict";
-        
-			
-			$( ".fancybox" ).fancybox();
+        "use strict";			
+		$( ".fancybox" ).fancybox();
         var opt;
         $.get( "/directories", function( data ){
             $.each( data, function( index, value ){
