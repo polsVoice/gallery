@@ -49,7 +49,7 @@
 
     app.get( "/directories", function( req, res ){
         "use strict";
-        var path = "./public/";
+        var path = "./public/img/";
         fs.readdir( path, function(err, files) {
             if (err) {return;}
             var arr = [];
@@ -61,20 +61,17 @@
                     arr.push( f );
                 }
             });
-            console.log( "Send from server.js " + arr );
             res.send( arr );
         });
     } );
 
     app.post( "/dirList", function( req, res ){
         var dir = req.body.dir;
-        console.log( "directory is " + dir );
-        walk( process.env.PWD + "/public/" + dir, function( err, result ){
+        walk( process.env.PWD + "/public/img/" + dir, function( err, result ){
             if ( err ){ throw err; }
             result.forEach( function( element, index ){
 				result[ index ] = element.replace( __dirname + "/public/", "" );
 			} );
-            console.log( "We've got files " + result );
             res.send( { "result": result } );
         } );
     } );

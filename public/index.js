@@ -11,10 +11,6 @@ var gallery = {
             data: {"dir":dir},
             datatype: "json",
             success: function( data ){
-                console.log( data.result );
-                gallery.dir = data.result;
-                console.log( "gallery.dir is " + gallery.dir );
-                console.log( "Contents of array after $.ajax is " + data.result );
                 gallery.imgRender( data.result );
             },
             error: function( jqxhr, status, errThrown ){
@@ -36,10 +32,7 @@ var gallery = {
 			'closeEffect'   :   'elastic',
 			'nextEffect'    :   'fade',
 			'openSpeed'     :   600, 
-			'closeSpeed'    :   200,
-			helpers : {
-				buttons : {}
-			}
+			'closeSpeed'    :   200
 		});
     },
     init: function(){
