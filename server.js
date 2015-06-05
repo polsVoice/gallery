@@ -56,7 +56,8 @@
             console.log( files );
             files.forEach(function(f) {
                 console.log( f );
-                if ( fs.lstatSync( path + f ).isDirectory() ){
+                if ( fs.lstatSync( path + f ).isDirectory() &&
+					f !== "fancybox" ){
                     arr.push( f );
                 }
             });
