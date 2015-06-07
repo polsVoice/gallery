@@ -4,7 +4,7 @@ var gallery = {
         "use strict";
         $( this ).blur();
         var dir = $( this ).val();
-        console.log( dir );
+        if ( dir === "&mdash;" ){return false;}
         $.ajax( {
             url: "/dirList",
             type: "POST",
@@ -46,10 +46,8 @@ var gallery = {
                 console.log( index + ": " + value );
                 $( "#menu" ).append( opt );
             } );
-            $( "#menu" ).change( gallery.getFileList );
+            $( "#menu" ).click( gallery.getFileList );
         } );
     }
 };
 gallery.init();
-
-// Test keychain 9

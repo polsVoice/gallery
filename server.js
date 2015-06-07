@@ -64,13 +64,15 @@
     app.post( "/dirList", function( req, res ){
         var dir = req.body.dir;
         console.log( "directory is " + dir );
-        walk( process.env.PWD + "/public/img/" + dir, function( err, result ){
-            if ( err ){ throw err; }
-            result.forEach( function( element, index ){
-				result[ index ] = element.replace( __dirname + "/public/", "" );
+        if ( dir !== "none" ){
+			walk( process.env.PWD + "/public/img/" + dir, function( err, result ){
+				if ( err ){ throw err; }
+				result.forEach( function( element, index ){
+					result[ index ] = element.replace( __dirname + "/public/", "" );
+				} );
+				res.send( { "result": result } );
 			} );
-            res.send( { "result": result } );
-        } );
+		}
     } );
 
 	app.use( "/", express.static( __dirname + "/public/" ) );
