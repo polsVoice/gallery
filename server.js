@@ -28,10 +28,6 @@
         });
     };
     app.use( bodyParser.urlencoded( { extended: false } ) );
-    fs.readFile( __dirname + "/test.txt", function( err, data ){
-        if ( err ){throw err;}
-        console.log( data.toString() );
-    } );
 
     app.get( "/", function( req, res ){
         "use strict";
@@ -56,17 +52,18 @@
             console.log( files );
             files.forEach(function(f) {
                 console.log( f );
-                if ( fs.lstatSync( path + f ).isDirectory() &&
-					f !== "fancybox" ){
+                if ( fs.lstatSync( path + f ).isDirectory() ){
                     arr.push( f );
                 }
             });
+            console.log( "Send from server.js " + arr );
             res.send( arr );
         });
     } );
 
     app.post( "/dirList", function( req, res ){
         var dir = req.body.dir;
+        console.log( "directory is " + dir );
         walk( process.env.PWD + "/public/img/" + dir, function( err, result ){
             if ( err ){ throw err; }
             result.forEach( function( element, index ){
