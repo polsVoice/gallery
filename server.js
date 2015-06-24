@@ -4,7 +4,7 @@
         bodyParser = require( "body-parser" ),
         app = express();
 
-    var walk = function(dir, done) {
+    function walk( dir, done ){
         var results = [];
         fs.readdir(dir, function(err, list) {
             if (err) {return done(err)};
@@ -36,12 +36,6 @@
         res.write( html );
         res.end();
     } );
-    
-    app.get( "/sendImg", function( req, res ){
-		var img = fs.readFileSync( req.body.img );
-        res.writeHeader( 200, { "Content-Type": "image/jpeg" } );
-        res.send( img );
-	} );
 
     app.get( "/directories", function( req, res ){
         "use strict";
@@ -49,21 +43,17 @@
         fs.readdir( path, function(err, files) {
             if (err) {return;}
             var arr = [];
-            console.log( files );
             files.forEach(function(f) {
-                console.log( f );
                 if ( fs.lstatSync( path + f ).isDirectory() ){
                     arr.push( f );
                 }
             });
-            console.log( "Send from server.js " + arr );
             res.send( arr );
         });
     } );
 
     app.post( "/dirList", function( req, res ){
         var dir = req.body.dir;
-        console.log( "directory is " + dir );
         if ( dir !== "none" ){
 			walk( process.env.PWD + "/public/img/" + dir, function( err, result ){
 				if ( err ){ throw err; }

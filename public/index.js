@@ -43,7 +43,6 @@ var gallery = {
             $.each( data, function( index, value ){
                 opt = "<option value=" +
                     value + ">" + value + "</option>";
-                console.log( index + ": " + value );
                 $( "#menu" ).append( opt );
             } );
             $( "#menu" ).click( gallery.getFileList );
