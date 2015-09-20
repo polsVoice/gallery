@@ -27,6 +27,14 @@
             })();
         });
     };
+    function isFileType( re, element ){
+		if ( re.exec( element ) ){
+			console.log( element + " is an image!" );
+			return true;
+		} else {
+			return false;
+		}
+	}
     app.use( bodyParser.urlencoded( { extended: false } ) );
 
     app.get( "/", function( req, res ){
@@ -54,11 +62,14 @@
 
     app.post( "/dirList", function( req, res ){
         var dir = req.body.dir;
+        
         if ( dir !== "none" ){
 			walk( process.env.PWD + "/public/img/" + dir, function( err, result ){
 				if ( err ){ throw err; }
 				result.forEach( function( element, index ){
-					result[ index ] = element.replace( __dirname + "/public/", "" );
+					if( isFileType( /\.jpg$|\.png$|\.gif$/, element ) ) {
+						result[ index ] = element.replace( __dirname + "/public/", "" );
+					}
 				} );
 				res.send( { "result": result } );
 			} );

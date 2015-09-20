@@ -1,5 +1,7 @@
 var gallery = {
     dir: null,
+    walk: function(){
+	},
     getFileList: function(){
         "use strict";
         $( this ).blur();
