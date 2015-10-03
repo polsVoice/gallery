@@ -30,11 +30,21 @@ describe( "Gallery", function() {
   'public/img/dir2/c/museum-367730_1280.jpg',
   'public/img/dir2/d/dinosaur-241962_1280.jpg',
   'public/img/dir2/d/skeleton-388559_1280.jpg' ];
+  
+  var loadTest = function(){
+      if ( gallery.fs 
+        && gallery.express
+        && gallery.bodyParser ){ return true; }
+    else { return false; }
+  };
 
     it( "walks the images directory", function( done ){
        gallery.walk( function( files ){
            expect( files.sort() ).toEqual( picArray.sort() );
            done();
        } );
+    });
+    it( "loads the required modules", function(){
+       expect( loadTest() ).toEqual( true );
     });
 });
