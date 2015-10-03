@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 module.exports = {
     results: [],
     walk: function(callback){
