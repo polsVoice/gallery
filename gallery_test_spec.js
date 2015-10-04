@@ -1,4 +1,6 @@
 var gallery = require( "./server" );
+var request = require( "request" );
+var baseUrl = "http://localhost:3000";
 
 describe( "Gallery", function() {
     var picArray = [ 'public/img/dir1/blolg',
@@ -37,7 +39,23 @@ describe( "Gallery", function() {
            done();
        } );
     } );
-    it( "prints hello world and listens at port 3000", function(){ 
-        gallery.init();
-    } );
 });
+
+describe( "Server", function(){
+    describe( "GET /", function(){
+        it( "returns status code 200", function( done ){
+            request.get( baseUrl, function( err, res, body ){
+                expect( res.statusCode ).toBe( 200 );
+                done();
+            } );
+        } );
+        
+        xit( "returns index.html", function( done ){
+            var html = fs.readFileSync( "/public/index.html" );
+            request.get( baseUrl, function( err, res, body ){
+                expect( body ).toBe( html );
+                done();
+            } );
+        } );
+    } );
+} );

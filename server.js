@@ -4,6 +4,15 @@ module.exports = function(){
         , bodyParser = require( "body-parser" )
         , nodeDir = require( "node-dir" )
         , app = express();
+    var htm
+    app.get( "/", function( req, res ){
+        "use strict";
+        var html = fs.readFileSync( "./public/index.html" );
+        res.writeHeader( 200, { "Content-Type": "text/html" } );
+        res.write( html );
+        res.end();
+    } );
+    app.listen( 30025 );
     return {
         walk: function( callback ){
             "use strict";
@@ -11,12 +20,6 @@ module.exports = function(){
                 if ( err ){ throw err; }
                 callback( files );
             } );
-        },
-        init: function(){
-            app.get( "/", function( req, res ){
-                res.send( "hello world" );
-            } );
-            app.listen( 3000 );
         }
     };
 }();

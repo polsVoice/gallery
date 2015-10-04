@@ -1,6 +1,7 @@
 {
     "name": "gallery",
     "version": "0.0.1",
+    "license": "GPLv3",
     "private": true,
     "scripts": {
         "start": "nodejs server.js"
